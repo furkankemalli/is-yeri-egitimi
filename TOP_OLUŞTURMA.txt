@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using UnityEngine;
+
+public class Top_olustur : MonoBehaviour
+{
+
+    public GameObject[] pre_toplar;
+    public int width, height;
+    public Seker[,] oyundaki_toplar;
+    public static int levelsonu;
+    void Start()
+    {
+        oyundaki_toplar = new Seker[width, height];
+        for (int x = -2; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+               Top_Olustur(x, y);
+        }
+        levelsonu = (width + 2) * height;
+
+
+    }
+    public void Top_Olustur(int x, int y)
+    {
+        GameObject yeni_top = GameObject.Instantiate(Rastgele_Top_Al(), new Vector3(x, y+10), Quaternion.identity);
+        yeni_top.GetComponent<Seker>().Yeni_konum_gir(x, y);
+      
+    }
+    public GameObject Rastgele_Top_Al()
+    {
+        int rast = Random.Range(0, pre_toplar.Length);
+        return pre_toplar[rast];
+    }
+   
+}

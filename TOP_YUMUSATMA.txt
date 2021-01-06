@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Seker : MonoBehaviour
+{
+    float x, y;
+    bool dussun_mu = true;
+    void Start()
+    {
+        
+    }
+    public void Yeni_konum_gir(float _x, float _y)
+    {
+        x = _x;
+        y = _y;
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (dussun_mu)
+            if (transform.position.y - y < 0.05f)
+            {
+                dussun_mu = false;
+                transform.position = new Vector3(x, y, 0);
+            }
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(x, y, 0), Time.deltaTime * 3f);
+        }
+    }
+}

@@ -1,0 +1,135 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class tophareket : MonoBehaviour
+{
+    bool bas=true;
+    private kontrol kontrol;
+    private bool hasStarted = false;
+    private Vector3 kontrolToBallVector;
+    public GameObject patlama;
+    public GameObject patlama2;
+
+
+    void Start()
+    {
+        kontrol = GameObject.FindObjectOfType<kontrol>();
+        kontrolToBallVector = this.transform.position - kontrol.transform.position;
+        
+
+    }
+
+   
+    
+
+    void Update()
+    {
+
+        if (!hasStarted)
+        {
+            this.transform.position = kontrol.transform.position + kontrolToBallVector;
+        }
+        if (Input.GetMouseButtonDown(0) && bas== true)
+        {
+            hasStarted = true;
+            this.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 4f);
+            bas = false;
+        }
+        
+    }
+
+
+   
+
+
+    [System.Obsolete]
+    void OnCollisionEnter2D(Collision2D hit)
+    {
+        if (hasStarted)
+        {
+            Instantiate(patlama, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+        }
+        
+        float dist = this.transform.position.x - GameObject.Find("_bar").transform.position.x;
+
+        if (hit.gameObject.name == "_bar" && transform.position.y>-4.2)
+        {
+
+            this.GetComponent<Rigidbody2D>().velocity = new Vector2(dist * 2f, 4f);
+            
+        }       
+       
+        if (hit.gameObject.tag== "Beyaz" && GetComponent<Renderer>().material.color == Color.white)
+        {
+            Destroy(hit.gameObject);
+            Top_olustur.levelsonu--;
+            Instantiate(patlama2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+        }
+        if (hit.gameObject.tag == "siyah" && GetComponent<Renderer>().material.color == Color.black)
+        {
+            Destroy(hit.gameObject);
+            Top_olustur.levelsonu--;
+            Instantiate(patlama2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+
+        }
+        if (hit.gameObject.tag == "yeşil" && GetComponent<Renderer>().material.color == Color.green)
+        {
+            Destroy(hit.gameObject);
+            Top_olustur.levelsonu--;
+            Instantiate(patlama2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+        }
+        if (hit.gameObject.tag == "pembe" && GetComponent<Renderer>().material.color == Color.magenta)
+        {
+            Destroy(hit.gameObject);
+            Top_olustur.levelsonu--;
+            Instantiate(patlama2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+        }
+        if (hit.gameObject.tag == "sarı" && GetComponent<Renderer>().material.color == Color.yellow)
+        {
+            Destroy(hit.gameObject);
+            Top_olustur.levelsonu--;
+            Instantiate(patlama2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+
+        }
+        if (hit.gameObject.tag == "mavi" && GetComponent<Renderer>().material.color == Color.blue)
+        {
+            Destroy(hit.gameObject);
+            Top_olustur.levelsonu--;
+            Instantiate(patlama2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+
+        }
+        if (hit.gameObject.tag == "kırmızı" && GetComponent<Renderer>().material.color == Color.red)
+        {
+            Destroy(hit.gameObject);
+            Top_olustur.levelsonu--;
+            Instantiate(patlama2, this.gameObject.transform.position, this.gameObject.transform.rotation);
+
+
+
+        }
+        if (Top_olustur.levelsonu <= 0)
+        {
+            SceneManager.LoadScene("bolumler");
+            PlayerPrefs.SetInt("bolum", Application.loadedLevel);
+        }
+       
+
+    }
+
+    
+    
+}
+
+    
+
+
